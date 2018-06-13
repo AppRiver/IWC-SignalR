@@ -1,0 +1,24 @@
+{
+  "name": "iwc-signalr",
+  "version": "1.0.0",
+  "description": "Utility to keep single SignalR connection for all browser windows (tabs) of the same application",
+  "main": "iwc-signalr.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AppRiver/IWC-SignalR.git"
+  },
+  "keywords": [
+    "iwc",
+    "signalr",
+    "single-signalr-connection-browser"
+  ],
+  "author": "Eugene Khudoy, App River",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AppRiver/IWC-SignalR/issues"
+  },
+  "homepage": "https://github.com/AppRiver/IWC-SignalR#readme"
+}

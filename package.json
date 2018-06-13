@@ -15,7 +15,7 @@
     "signalr",
     "single-signalr-connection-browser"
   ],
-  "author": "Eugene Khudoy, App River",
+  "author": "Eugene Khudoy, AppRiver LLC",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/AppRiver/IWC-SignalR/issues"

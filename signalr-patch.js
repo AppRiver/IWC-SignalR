@@ -2,7 +2,7 @@
 (function () {
     var vars = {
         deferredStartResult: $.Deferred(),
-        isStarting: false,
+        isStarted: false,
         observable: new SJ.utils.Observable(),
         defferedServerCalls: [],
         isProxiesUpdated: false,
@@ -102,35 +102,28 @@
             updateProxies();
         }
 
-        if (vars.deferredStartResult.state() !== 'pending') {
-            vars.deferredStartResult = $.Deferred();
-        }
+        vars.deferredStartResult = $.Deferred();
 
-        if ($.connection.hub.state === $.signalR.connectionState.disconnected) {
-            startConnection.apply(this, arguments);
-        } else {
-            stopConnection(function () {
-                startConnection.apply(this, arguments);
-            });
-        }
+        startConnection.apply(this, arguments);
+
         return vars.deferredStartResult.promise();
     };
 
     function startConnection() {
         var args = arguments;
-        if (!vars.isStarting) {
-            vars.isStarting = true;
+        if (!vars.isStarted) {
+            vars.isStarted = true;
             window.setTimeout(function () {
                 $.connection.hub._.lastMessageAt = new Date().getTime();
                 $.connection.hub._.lastActiveAt = new Date().getTime();
                 delete $.connection.hub._deferral;
                 vars.originalStart.apply($.connection.hub, args)
                     .done(function () {
-                        vars.isStarting = false;
+                        vars.isStarted = true;
                         vars.deferredStartResult.resolveWith(this, arguments);
                     })
                     .fail(function () {
-                        vars.isStarting = false;
+                        vars.isStarted = false;
                         vars.deferredStartResult.rejectWith(this, arguments);
                     });
             });
@@ -143,7 +136,7 @@
 
     function stopConnection(callback) {
         var onDisconnected = function () {
-            vars.isStarting = false;
+            vars.isStarted = false;
             callback();
         };
         var doDisconnect = function () {
